@@ -1,6 +1,6 @@
 ---
 title: "Project proposal"
-author: "Team name"
+author: "Dylan Janowski"
 output: html_document
 ---
 
@@ -11,6 +11,126 @@ library(broom)
 
 ## 1. Data
 
+This data contains information of demographic factors such as age, education, and community and how they relate to perceptions of environmental questions. The data came from a survey of 262 individuals collected in public and university settings, with each row representing one respondent and each column (23 of them) capturing answers to survey questions and demographic information.
+
+```{r, message = FALSE}
+data <- read.csv("../data/data.csv")
+
+names(data) <- c(
+  "climate_happening",
+  "human_cause",
+  "planet_impact",
+  "seriousness",
+  "conserve_resources",
+  "env_vs_econ",
+  "human_rights_resources",
+  "regulations_too_far",
+  "gov_action",
+  "corporate_responsibility",
+  "individual_impact",
+  "support_regulations",
+  "support_carbon_tax",
+  "who_pays_cost",
+  "coal_tradeoff",
+  "personal_behavior",
+  "pay_more_sustainable",
+  "largest_climate_driver",
+  "tech_solution",
+  "age",
+  "education",
+  "community_current",
+  "community_grew_up"
+)
+
+```
+
+I renamed the variables (questions) to shorter, easier names to manipulate and visualize later.
+
+```{r}
+head(data)
+```
+
 ## 2. Exploratory Visualization
 
+```{r}
+ggplot(data, aes(x = community_current, fill = climate_happening)) +
+  geom_bar(position = "fill") +
+  labs(
+    title = "Belief that Climate Change is Happening by Community",
+    x = "Community Type",
+    y = "Proportion",
+    fill = "Belief"
+  )
+```
+
+```{r}
+ggplot(data, aes(x = community_current, fill = seriousness)) +
+  geom_bar(position = "fill") +
+  labs(
+    title = "Seriousness of Climate Change by Community",
+    x = "Community Type",
+    y = "Proportion",
+    fill = "Seriousness"
+  )
+```
+
+```{r}
+ggplot(data, aes(x = community_current, fill = human_cause)) +
+  geom_bar(position = "fill") +
+  labs(
+    title = "Belief that Climate Change is Human Caused by Community",
+    x = "Community Type",
+    y = "Proportion",
+    fill = "Human Cause Belief"
+  )
+```
+
+```{r}
+ggplot(data, aes(x = community_grew_up, fill = climate_happening)) +
+  geom_bar(position = "fill") +
+  labs(
+    title = "Belief that Climate Change is Happening by Community Grew up in",
+    x = "Community Grew Up In",
+    y = "Proportion",
+    fill = "Belief"
+  )
+```
+
+```{r}
+ggplot(data, aes(x = community_grew_up, fill = seriousness)) +
+  geom_bar(position = "fill") +
+  labs(
+    title = "Seriousness of Climate Change by Community Grew up in",
+    x = "Community Grew Up In",
+    y = "Proportion",
+    fill = "Seriousness"
+  )
+```
+
+```{r}
+ggplot(data, aes(x = community_grew_up, fill = human_cause)) +
+  geom_bar(position = "fill") +
+  labs(
+    title = "Belief that Climate Change is Human Caused by Community Grew up in",
+    x = "Community Grew Up In",
+    y = "Proportion",
+    fill = "Human Cause Belief"
+  )
+```
+
+```{r}
+ggplot(data, aes(x = age, fill = human_cause)) +
+  geom_bar(position = "fill") +
+  scale_x_discrete(limits = c("Under 20", "20-30", "30-40", "40-50", "50-60", "60+")) +
+  labs(
+    title = "Belief that Climate Change is Human-Caused by Age",
+    x = "Age Group",
+    y = "Proportion",
+    fill = "Human Cause Belief"
+  )
+```
+Tried to reorder the graph in increasing age by converting to factor data, but was having trouble with errors, so I instead found that I can manually reorder it.
+
 ## 3. Possible question and method
+
+As of now, I'm unsure of what I should focus on with the data. Should I focus on one short question such as "do urban/rural/suburban individuals disagree on climate change occurrence and its cause," or should I explore wider questions? I will be able to use methods such as t-test and ANOVA tests to compare mean climate attitudes across different demographic groups. I will be able to use these visuals and tests to compare the differemces between the groups and how they compare on answers.
