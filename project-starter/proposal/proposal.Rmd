@@ -104,7 +104,9 @@ ggplot(data, aes(x = community_grew_up, fill = seriousness)) +
     x = "Community Grew Up In",
     y = "Proportion",
     fill = "Seriousness"
-  )
+  ) + 
+  scale_fill_viridis_d() + 
+  theme_classic()
 ```
 
 ```{r}
@@ -127,7 +129,8 @@ ggplot(data, aes(x = age, fill = human_cause)) +
     x = "Age Group",
     y = "Proportion",
     fill = "Human Cause Belief"
-  )
+  ) 
+  ggsave("figure1.png", height = 5 , width = 8)
 ```
 Tried to reorder the graph in increasing age by converting to factor data, but was having trouble with errors, so I instead found that I can manually reorder it.
 
