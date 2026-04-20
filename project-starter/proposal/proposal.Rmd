@@ -4,6 +4,12 @@ author: "Dylan Janowski"
 output: html_document
 ---
 
+> GM GRADE: 18/20 - great work! Some additional narrative to guide the reader through the sequence of figures and your interpretation is missing, and some more concrete details about how the variables breakdown into response and predictor, how they are related to the questions, and # responses by group would have strenthened.
+
+> Description: 7.5/8
+> Content: 9/10
+> Quality: 1.5/2
+
 ```{r load-packages, message = FALSE}
 library(tidyverse)
 library(broom)
