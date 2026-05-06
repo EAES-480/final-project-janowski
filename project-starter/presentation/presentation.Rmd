@@ -1,7 +1,7 @@
 ---
-title: "Presentation title"
-subtitle: "Presentation subtitle (if any)"
-author: "Team name <br> Names of team members"
+title: "Demographic Influences on Climate Change Perceptions in the Midwest"
+subtitle: "EAES 480 Final Presentation"
+author: "Dylan Janowski"
 institute: "University of Illinois at Chicago"
 date: "`r Sys.Date()`"
 output:
@@ -18,161 +18,353 @@ output:
 ```{r load-packages, include = FALSE}
 # Add any additional packages you need to this chunk
 library(tidyverse)
-library(tidymodels)
-library(palmerpenguins)
+library(infer)
 library(knitr)
 library(xaringanthemer)
+library(broom)
 ```
 
 ```{r setup, include=FALSE}
 # For better figure resolution
-knitr::opts_chunk$set(fig.retina = 3, dpi = 300, fig.width = 6, fig.asp = 0.618, out.width = "80%")
-```
-
-```{r load-data, include=FALSE}
-# Load your data here
-```
-
-```{r}
-style_xaringan(
-  title_slide_background_image = "img/confetti.jpg"
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 7,
+  fig.asp = 0.6
 )
 ```
 
+```{r load-data, include=FALSE}
+data <- read.csv("../data/data.csv")
+```
 
-class: center, middle
+```{r}
+xaringanthemer::style_xaringan(
+  text_color = "#222222",
+  header_color = "#1b5e20",
+  background_color = "#ffffff",
+  link_color = "#2e7d32",
+  title_slide_background_color = "#2e7d32",
+  title_slide_text_color = "#ffffff"
+)
+```
 
-## A statement of the overall goal / research question
+```{r}
+names(data) <- c(
+  "climate_happening",
+  "human_cause",
+  "planet_impact",
+  "seriousness",
+  "conserve_resources",
+  "env_vs_econ",
+  "human_rights_resources",
+  "regulations_too_far",
+  "gov_action",
+  "corporate_responsibility",
+  "individual_impact",
+  "support_regulations",
+  "support_carbon_tax",
+  "who_pays_cost",
+  "coal_tradeoff",
+  "personal_behavior",
+  "pay_more_sustainable",
+  "largest_climate_driver",
+  "tech_solution",
+  "age",
+  "education",
+  "community_current",
+  "community_grew_up"
+)
+
+data <- data %>%
+  mutate(across(everything(), as.factor))
+```
+
+# How Do Demographics Shape Climate Change Beliefs?
+
+**Why This Matters**
+- Because public opinion shapes environmental action, understanding how climate beliefs vary across demographic groups is important for improving communication and addressing climate change effectively.
+
+**Guiding Questions**
+- Does belief in human causation differ by current community?
+- Does belief in human causation differ by age group?
+- Are these differences statistically significant?
+
+**Demographics of Focus**
+- Current community
+- Age group
+---
+
+# Data Overview
+
+- Survey dataset of **262 respondents**
+- **23 variables** (demographics + opinions)
+  - **Key variables:**
+      - **human_cause** (Do you believe climate change is primarily caused by human activity?)
+      - **community_current** (Which best describes the community where you currently live?)
+      - **age** (Age range)
 
 ---
 
-class: inverse, center, middle
+# Data Wrangling
+.pull-up[
+```{r, eval=FALSE, echo=T}
+names(data) <- c(
+  "climate_happening",
+  "human_cause",
+  "planet_impact",
+  "seriousness",
+  "conserve_resources"
+# ... Renaming continued
 
-# Section title
+data <- data %>%
+  mutate(across(everything(), as.factor))
+```
+]
 
----
-
-# Hello World
-
-- Click the `Knit` button to compile your presentation
-
-- Make sure to commit and push all resulting files to your GitHub repo
-
----
-
-class: inverse, middle, center
-
-# Using xaringan
-
----
-
-# xaringan
-
-- The presentation is created using the `xaringan` package
-
-- Use `---` to separate slides and `--` for incremental builds
-
---
-
-- Like this
+.pull-down[
+```{r, echo=T}
+data %>%
+  select(human_cause, community_current, age) %>%
+  slice(c(1, 6, 10))
+```
+]
 
 ---
 
-# Layouts
-
-You can use plain text
-
-- or bullet points
+# Does belief in human causation differ by current community?
 
 .pull-left[
-or text in two columns $^*$
+```{r, eval=FALSE, echo=T}
+ggplot(data, aes(x = community_current, fill = human_cause)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = c(
+    "Yes" = "#4CAF50",
+    "No" = "#E57373",
+    "Maybe" = "#FFD54F"
+  )) +
+  labs(
+    title = "Belief that Climate Change is Human-Caused by Community",
+    x = "Community Type",
+    y = "Proportion",
+    fill = "Climate Belief"
+  ) +
+  theme_minimal()
+```
 ]
+
 .pull-right[
-- like
-- this
-]
-
-.footnote[
-[*] And add footnotes
-]
-
----
-
-# Code
-
-```{r boring-regression}
-# a boring regression
-model <- lm(dist ~ speed, data = cars)
-tidy(model)
-glance(model)
-```
-
----
-
-# Plots
-
-```{r recode-species, echo = FALSE}
-# In this chunk I'm doing a bunch of analysis that I don't want to present 
-# in my slides. But I need the resulting data frame for a plot I want to present.
-iris_modified <- iris %>%
-  mutate(Species = fct_other(Species, keep = "setosa"))
-```
-
-```{r plot-iris, echo = FALSE}
-# Code hidden with echo = FALSE
-# Uses modified iris dataset from previous chunk
-# Play around with height and width until you're happy with the look
-ggplot(data = iris_modified, mapping = aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
-  geom_point() + 
-  theme_minimal() # theme options: https://ggplot2.tidyverse.org/reference/ggtheme.html
-```
-
----
-
-## Plot and text
-
-.pull-left[
-- Some text
-- goes here
-]
-.pull-right[
-```{r warning=FALSE, out.width="100%", fig.width=4, echo=FALSE}
-# see how I changed out.width and fig.width from defaults
-# to make the figure bigger
-ggplot(penguins, aes(x = bill_length_mm, y = species, color = species)) +
-  geom_boxplot() +
+```{r}
+ggplot(data, aes(x = community_current, fill = human_cause)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = c(
+    "Yes" = "#4CAF50",
+    "No" = "#E57373",
+    "Maybe" = "#FFD54F"
+  )) +
+  labs(
+    title = "Belief that Climate Change is Human-Caused by Community",
+    x = "Community Type",
+    y = "Proportion",
+    fill = "Climate Belief"
+  ) +
   theme_minimal()
 ```
 ]
 
 ---
 
-# Tables
+# Are These Community Differences Statistically Significant?
 
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
+.pull-up[
+**Null hypothesis:**
+Community and belief in human-caused climate change have no relationship
 
-```{r iris-table, echo = FALSE}
-kable(head(iris), format = "html")
+**Alternative hypothesis:**
+Community and belief in human-caused climate change have a relationship
+
+**Test Results**
+- Because p < 0.05, we reject the null hypothesis
+- There is strong statistical evidence that climate change beliefs depend on community type
+]
+
+.pull-down[
+```{r}
+chisq.test(table(data$community_current, data$human_cause))
 ```
+]
 
 ---
 
-# Images
+# Does belief in human causation differ by age group?
 
-```{r castle, echo = FALSE, out.width = "60%", fig.align = "center", fig.cap = "Image credit: Photo by Enjoy Illinois."}
-include_graphics("img/chicago-fall.jpeg")
+.pull-left[
+```{r, eval=FALSE, echo=T}
+ggplot(data, aes(x = age, fill = human_cause)) +
+  geom_bar(position = "fill") +
+  scale_x_discrete(limits = c("Under 20", "20-30", "30-40", "40-50", "50-60", "60+")) +
+  scale_fill_manual(values = c(
+    "Yes" = "#4CAF50",
+    "No" = "#E57373",
+    "Maybe" = "#FFD54F"
+  )) +
+  labs(
+    title = "Belief that Climate Change is Human-Caused by Age",
+    x = "Age Group",
+    y = "Proportion",
+    fill = "Human Cause Belief"
+  ) +
+  theme_minimal()
 ```
 
+]
+
+.pull-right[
+```{r}
+ggplot(data, aes(x = age, fill = human_cause)) +
+  geom_bar(position = "fill") +
+  scale_x_discrete(limits = c("Under 20", "20-30", "30-40", "40-50", "50-60", "60+")) +
+  scale_fill_manual(values = c(
+    "Yes" = "#4CAF50",
+    "No" = "#E57373",
+    "Maybe" = "#FFD54F"
+  )) +
+  labs(
+    title = "Belief that Climate Change is Human-Caused by Age",
+    x = "Age Group",
+    y = "Proportion",
+    fill = "Human Cause Belief"
+  ) +
+  theme_minimal()
+```
+]
 
 ---
 
-# Feeling adventurous?
+# Does belief in human causation differ by age group?
 
-- Want to find out more about `xaringan`? See https://slides.yihui.name/xaringan/#1.
+.pull-left[
+```{r, echo=T}
+data <- data %>%
+  mutate(
+    age_group = case_when(
+      age == "Under 20" | age == "20-30" |
+        age == "30-40" ~ "40 and under",
+      age == "40-50" | age == "50-60" |
+        age == "60+" ~ "40 and above",))
+```
+]
 
-- You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
+.pull-right[
+```{r}
+ggplot(data, aes(x = age_group, fill = human_cause)) +
+  geom_bar(position = "fill") +
+  scale_x_discrete(limits = c("40 and under", "40 and above")) +
+  scale_fill_manual(values = c(
+    "Yes" = "#4CAF50",
+    "No" = "#E57373",
+    "Maybe" = "#FFD54F"
+  )) +
+  labs(
+    title = "Belief that Climate Change is Human-Caused by Age Group",
+    x = "Age Group",
+    y = "Proportion",
+    fill = "Human Cause Belief"
+  ) +
+  theme_minimal()
+```
+]
 
-- But some of you might want to play around with slide styling. The 
-`xaringanthemer` provides some solutions for this that: https://pkg.garrickadenbuie.com/xaringanthemer.
+---
 
-- And if you want more bells and whistles, there is also `xaringanExtra`: https://pkg.garrickadenbuie.com/xaringanExtra.
+# Are these age differences statistically significant?
+
+.pull-left[
+
+```{r, echo=T}
+set.seed(480)
+n_boot <- 1000
+boot <- replicate(n_boot, {
+  sample_data <- data %>%
+    slice_sample(n = nrow(data), replace = TRUE)
+
+  sample_data %>%
+    filter(age_group == "40 and above") %>%
+    summarise(p_yes = mean(human_cause == "Yes", na.rm = TRUE)) %>%
+    pull(p_yes)
+})
+
+mean(boot)
+quantile(boot, c(0.025, 0.975))
+```
+]
+
+--
+
+.pull-right[
+
+```{r}
+ggplot(data.frame(boot), aes(x = boot)) +
+  geom_histogram(bins = 30, fill = "#4CAF50", color = "white") +
+  labs(
+    title = "Bootstrap Estimate of Climate Belief Ages 40+",
+    x = "Proportion Saying 'Yes'",
+    y = "Bootstrap Frequency"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
+- The models shows 49% of respondents over 40 believe climate change is human-caused.
+- However, the quantile range is 38% to 59%.
+]
+
+---
+
+# Are these age differences statistically significant?
+
+.pull-left[
+```{r, echo=T}
+set.seed(480)
+n_boot <- 1000
+boot_under40 <- replicate(n_boot, {
+  sample_data <- data %>%
+    slice_sample(n = nrow(data), replace = TRUE)
+
+  sample_data %>%
+    filter(age_group == "40 and under") %>%
+    summarise(p_yes = mean(human_cause == "Yes", na.rm = TRUE)) %>%
+    pull(p_yes)
+})
+
+mean(boot_under40)
+quantile(boot_under40, c(0.025, 0.975))
+```
+
+]
+
+--
+
+.pull-right[
+```{r}
+ggplot(data.frame(boot_under40), aes(x = boot_under40)) +
+  geom_histogram(bins = 30, fill = "#4CAF50", color = "white") +
+  labs(
+    title = "Bootstrap Estimate of Climate Belief Ages 40 and Under",
+    x = "Proportion Saying 'Yes'",
+    y = "Bootstrap Frequency"
+  ) +
+  theme_minimal(base_size = 14)
+```
+- The models shows 84% of respondents over 40 believe climate change is human-caused.
+- However, the quantile range is 78% to 89%.
+]
+
+---
+
+# Conclusions
+
+- There is statistically significant evidence that community context is associated with differences in belief in human-caused climate change.
+- Age also shows variation, with younger and older groups differing in both level of agreement and uncertainty.
+- Bootstrap results suggest that while most groups lean toward believing climate change is human-caused, confidence ranges are wide in some community and age groups, indicating uncertainty in estimates.
+- Overall, demographic factors help explain how environmental beliefs are distributed, which has implications for how climate communication and policy support are shaped.
