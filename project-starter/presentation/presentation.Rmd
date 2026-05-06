@@ -84,7 +84,7 @@ data <- data %>%
 # How Do Demographics Shape Climate Change Beliefs?
 
 **Why This Matters**
-- Because public opinion shapes environmental action, understanding how climate beliefs vary across demographic groups is important for improving communication and addressing climate change effectively.
+- Because public opinion shapes environmental action, understanding how climate beliefs vary across demographic groups is important for improving communication and addressing climate change effectively. To study this, I conducted a survey within the Midwest asking various climate focused questions to respondents.
 
 **Guiding Questions**
 - Does belief in human causation differ by current community?
