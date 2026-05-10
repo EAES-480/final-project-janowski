@@ -49,7 +49,7 @@ The test produced a chi-square statistic of 23.788 and a p-value of 8.81 × 10�
 
 ## Does belief in human causation differ by age group?
 
-The second part of the project examined differences by age group. The graphs showed that younger respondents were much more likely to believe climate change is primarily caused by human activity. Older respondents showed lower agreement levels and greater variation in responses. The bar graph for age groups, separated into ten-year intervals, also showed a clear distribution pattern: a much higher proportion of respondents under 40 answered “yes,” while significantly fewer respondents over 40 agreed. Based on this pattern, further investigation was done by grouping respondents into two age categories and testing for differences between them.
+The second part of the project examined differences by age group. The graphs showed that younger respondents were much more likely to believe climate change is primarily caused by human activity. Older respondents showed lower agreement levels and greater variation in responses. Separated into ten-year intervals, the age data showed a much higher proportion of respondents under 40 answered “yes,” while significantly fewer respondents over 40 agreed. Based on this pattern, further investigation was done by grouping respondents into two age categories and testing for differences between them.
 
 ```{r}
 data <- data %>%
@@ -73,9 +73,9 @@ For respondents age 40 and under, the bootstrap estimate showed that about 84% b
 
 ## Conclusions
 
-Overall, the results showed that both age and community type were associated with differences in climate change beliefs. Younger respondents were more likely to believe climate change is caused by humans, while older respondents were less likely to agree. Community context also appeared to influence climate opinions.
+Overall, the results showed that both age and community type were associated with differences in climate change beliefs. Younger respondents were more likely to believe climate change is caused by humans, while older respondents were less likely to agree. Community also appeared to influence climate opinions with urban respodnenst holding more climate-centric views.
 
-One limitation of the project is that the survey sample was relatively small and regionally focused in the Midwest, so the results may not represent the broader United States population. In addition, survey responses were self-reported, which may introduce bias or inconsistency in how questions were interpreted. Despite these limitations, the analysis demonstrates how demographic factors can help explain differences in environmental beliefs and attitudes.
+One limitation of the project is that the survey sample was relatively small, so the results may not represent the broader population. In addition, survey responses were self-reported, which may introduce bias or inconsistency in how questions were interpreted, especially when self identifying with a community. Despite these limitations, the analysis demonstrates how demographic factors can help explain differences in environmental beliefs and attitudes.
 
 # Presentation
 
