@@ -37,7 +37,7 @@ data <- data %>%
   )
 ```
 
-The first part of the analysis examined whether climate change beliefs differed across community types. Proportional bar charts created with ggplot2 showed noticeable variation between communities. Some community groups had much higher percentages of respondents answering “Yes” to the question asking whether climate change is primarily caused by human activity, while other groups showed more uncertainty or disagreement.
+The first part of the analysis examined whether climate change beliefs differed across community types. Proportional bar charts created with ggplot2 showed noticeable variation between communities. Rural and suburban groups had a substantially lower rate of saying “yes” to believing in human-caused climate change.
 
 To determine whether these differences were statistically significant, a chi-square test of independence was performed.
 
@@ -47,7 +47,7 @@ chisq.test(table(data$community_current, data$human_cause))
 
 The test produced a chi-square statistic of 23.788 and a p-value of 8.81 × 10⁻⁵. Because the p-value was much smaller than 0.05, the null hypothesis was rejected. This indicates that there is a statistically significant relationship between community type and belief in human-caused climate change. In other words, beliefs about climate change were not evenly distributed across different community groups.
 
-The second part of the project examined differences by age group. The graphs showed that younger respondents were much more likely to believe climate change is primarily caused by human activity. Older respondents showed lower agreement levels and greater variation in responses.
+The second part of the project examined differences by age group. The graphs showed that younger respondents were much more likely to believe climate change is primarily caused by human activity. Older respondents showed lower agreement levels and greater variation in responses. The bar graph for age groups, separated into ten-year intervals, also showed a clear distribution pattern: a much higher proportion of respondents under 40 answered “yes,” while significantly fewer respondents over 40 agreed. Based on this pattern, further investigation was done by grouping respondents into two age categories and testing for differences between them.
 
 Bootstrap sampling was used to estimate the proportion of respondents in each age group who answered “Yes.” For respondents age 40 and above, the bootstrap estimate showed that about 49% believed climate change is human-caused. The confidence interval ranged from approximately 38% to 59%, showing a relatively large amount of uncertainty.
 
