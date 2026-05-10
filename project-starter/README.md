@@ -11,7 +11,9 @@ The dataset used in this analysis came from an original survey created and distr
 The main research questions were:
 
 Does belief in human-caused climate change differ by current community type?
+
 Does belief in human-caused climate change differ by age group?
+
 Are these differences statistically significant?
 
 The first step involved cleaning and organizing the dataset. Variables were renamed so they would be easier to use during analysis. All variables were converted to factor format because the survey responses were categorical.
@@ -61,7 +63,7 @@ One limitation of the project is that the survey sample was relatively small and
 
 ## Presentation
 
-The presentation can be found [here](presentation/presentation.html).
+The presentation can be found [here](presentation/presentation.html)
 
 ## Data
 
