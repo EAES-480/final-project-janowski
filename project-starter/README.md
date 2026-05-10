@@ -49,16 +49,15 @@ The second part of the project examined differences by age group. The graphs sho
 
 Bootstrap sampling was used to estimate the proportion of respondents in each age group who answered “Yes.” For respondents age 40 and above, the bootstrap estimate showed that about 49% believed climate change is human-caused. The confidence interval ranged from approximately 38% to 59%, showing a relatively large amount of uncertainty.
 
-![Figure 1](img/boot1.png)
+![Figure 1](boot1.png)
 
 For respondents age 40 and under, the bootstrap estimate showed that about 84% believed climate change is human-caused. The confidence interval ranged from approximately 78% to 89%, showing stronger agreement and less variation compared to the older age group.
 
-![Figure 2](img/boot2.png)
+![Figure 2](boot2.png)
 
 Overall, the results showed that both age and community type were associated with differences in climate change beliefs. Younger respondents were more likely to believe climate change is caused by humans, while older respondents were less likely to agree. Community context also appeared to influence climate opinions.
 
 One limitation of the project is that the survey sample was relatively small and regionally focused in the Midwest, so the results may not represent the broader United States population. In addition, survey responses were self-reported, which may introduce bias or inconsistency in how questions were interpreted. Despite these limitations, the analysis demonstrates how demographic factors can help explain differences in environmental beliefs and attitudes.
-
 
 ## Presentation
 
